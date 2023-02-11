@@ -1,0 +1,3 @@
+Summarize the following news headlines in $num_sentences sentences or less. Each line is one headline.
+
+$headlines

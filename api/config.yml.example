@@ -1,0 +1,4 @@
+# Edit to add your credentials and save as config.yml
+OPENAI_API_KEY: INSERT
+NEWSAPI_APP_ID: INSERT
+NEWSAPI_APP_KEY: INSERT
