@@ -6,7 +6,7 @@ NewsGPT is powered by GPT-3 and AYLIEN News API. The source code of NewsGPT can 
 
 The project consists of a Flask backend (in the `api` folder) and a React frontend (in the `client` folder).
 
-To run the NewsGPT:
+To run NewsGPT:
 
 1. Start the backend
 
