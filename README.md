@@ -8,9 +8,9 @@ The project consists of a Flask backend (in the `api` folder) and a React fronte
 
 To run NewsGPT:
 
-1. Start the backend
+**1. Start the backend**
 
-Create a config.yml file which contains your OpenAI and News API credentials (see `config.yml.example` for a template).
+Create a `config.yml` file which contains your OpenAI and News API credentials (see `config.yml.example` for a template).
 
 ```
 cd api/
@@ -18,7 +18,7 @@ pip install -r requirements.txt
 python3 -m flask run --host=0.0.0.0 --port=5001
 ```
 
-2. Start the frontend
+**2. Start the frontend**
 
 ```
 cd client/
