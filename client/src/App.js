@@ -105,7 +105,7 @@ function App() {
   return (
     <Container fixed justifyContent="center" alignItems="center" maxWidth="md" style={{'margin-top': '50px'}}>
       <h1>NewsGPT</h1>
-      <div>Hello 👋🏻 You can use NewsGPT to get the latest news about anything–any topic, category, entity or event. <br/><br/>NewsGPT is powered by GPT-3 and <Link href="https://aylien.com" target="_blank">AYLIEN News API</Link>. The source code of NewsGPT can be accessed here. NewsGPT is developed using ChatGPT.<br/><br/><br/></div>
+      <div>Hello 👋🏻 You can use NewsGPT to get the latest news about anything–any topic, category, entity or event. <br/><br/>NewsGPT is powered by GPT-3 and <Link href="https://aylien.com" target="_blank">AYLIEN News API</Link>. The source code of NewsGPT can be accessed <Link href="https://github.com/parsaghaffari/newsgpt" target="_blank">here</Link>. NewsGPT is mostly developed using ChatGPT.<br/><br/><br/></div>
       <p><b>Step 1. Generate an AQL using GPT-3</b></p>
       <Box>
           <Paper
