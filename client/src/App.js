@@ -15,6 +15,7 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SendIcon from '@mui/icons-material/Send';
 import Slider from '@mui/material/Slider';
+import Grid from '@mui/material/Grid';
 
 import TimeAgo from 'react-timeago';
 
@@ -104,7 +105,14 @@ function App() {
 
   return (
     <Container fixed justifyContent="center" alignItems="center" maxWidth="md" style={{'margin-top': '50px'}}>
-      <h1>NewsGPT</h1>
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
+          <h1>NewsGPT</h1>
+        </Grid>
+        <Grid item xs={6}>
+          <h1 style={{'text-align': 'right'}}><a class="github-button" href="https://github.com/parsaghaffari/newsgpt" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-size="large" data-show-count="true" aria-label="Star parsaghaffari/newsgpt on GitHub">Star</a></h1>
+        </Grid>
+    </Grid>
       <div>Hello 👋🏻 You can use NewsGPT to get the latest news about anything–any topic, category, entity or event. <br/><br/>NewsGPT is powered by GPT-3 and <Link href="https://aylien.com" target="_blank">AYLIEN News API</Link>. The source code of NewsGPT can be accessed <Link href="https://github.com/parsaghaffari/newsgpt" target="_blank">here</Link>. NewsGPT is mostly developed using ChatGPT.<br/><br/><br/></div>
       <p><b>Step 1. Generate an AQL using GPT-3</b></p>
       <Box>
