@@ -18,6 +18,7 @@ import Slider from '@mui/material/Slider';
 import Grid from '@mui/material/Grid';
 
 import TimeAgo from 'react-timeago';
+import ReactGA from "react-ga4";
 
 function App() {
   const [aql_inputText, setaql_inputText] = useState("");
@@ -35,6 +36,10 @@ function App() {
   const [summary_loading, setsummary_loading] = useState(false);
 
   const api_url = `http://${window.location.hostname}:5001`;
+
+  const TRACKING_ID = "G-L8PWKQ7CY7";
+  ReactGA.initialize(TRACKING_ID);
+  ReactGA.send({ hitType: "pageview", page: window.location.pathname });
 
   const aql_handleSubmit = async (event) => {
     event.preventDefault();

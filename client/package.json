@@ -15,7 +15,9 @@
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
     "@fontsource/roboto": "latest",
-    "react-timeago": "latest"
+    "react-timeago": "latest",
+    "react-ga4": "latest",
+    "react-helmet": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
