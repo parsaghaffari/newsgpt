@@ -1,6 +1,6 @@
 import './App.css';
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
@@ -14,11 +14,13 @@ import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SendIcon from '@mui/icons-material/Send';
+import MicIcon from '@mui/icons-material/Mic';
 import Slider from '@mui/material/Slider';
 import Grid from '@mui/material/Grid';
 
 import TimeAgo from 'react-timeago';
 import ReactGA from "react-ga4";
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 function App() {
   const [aql_inputText, setaql_inputText] = useState("");
@@ -40,6 +42,21 @@ function App() {
   const TRACKING_ID = "G-L8PWKQ7CY7";
   ReactGA.initialize(TRACKING_ID);
   ReactGA.send({ hitType: "pageview", page: window.location.pathname });
+
+  const {
+    transcript,
+    interimTranscript,
+    finalTranscript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition
+  } = useSpeechRecognition();
+
+  useEffect(() => {
+    if (transcript !== '') {
+     setaql_inputText(transcript);
+    }
+  }, [transcript]);
 
   const aql_handleSubmit = async (event) => {
     event.preventDefault();
@@ -131,6 +148,9 @@ function App() {
               value={aql_inputText}
               onChange={(event) => setaql_inputText(event.target.value)}
             />
+            <IconButton color={!listening ? "primary" : "error"} sx={{ p: '10px' }} onClick={listening ? SpeechRecognition.stopListening : SpeechRecognition.startListening}>
+              <MicIcon />
+            </IconButton>
             <IconButton color="primary" sx={{ p: '10px' }} onClick={aql_handleSubmit} disabled={aql_inputText.length !== 0 ? false : true}>
               <SendIcon />
             </IconButton>

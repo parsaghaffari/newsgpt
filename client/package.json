@@ -17,7 +17,8 @@
     "@fontsource/roboto": "latest",
     "react-timeago": "latest",
     "react-ga4": "latest",
-    "react-helmet": "latest"
+    "react-helmet": "latest",
+    "react-speech-recognition": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

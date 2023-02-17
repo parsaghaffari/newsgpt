@@ -1,5 +1,6 @@
 .DS_Store
 config.yml
+package-lock.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
