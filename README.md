@@ -44,6 +44,8 @@ Assuming Ubuntu. Copy and configure the Nginx config file `news-gpt.io.conf` to 
 
 Follow [this guide](https://www.nginx.com/blog/using-free-ssltls-certificates-from-lets-encrypt-with-nginx/) to obtain a Let's Encrypt SSL cert and add it to Nginx server (the configuration is already there, you just need to point it to the right cert and key files).
 
+Ensure your firewall is set to allow HTTP and HTTPS traffic to the server.
+
 **2. Build the React app and copy to Nginx folder**
 
 ```
