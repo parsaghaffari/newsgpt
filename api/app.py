@@ -27,7 +27,7 @@ app = Flask(__name__)
 with open('prompt-aql.txt', 'r') as f:
     prompt_aql = Template(f.read())
 
-@app.route("/text2aql")
+@app.route("/api/text2aql")
 def text2aql():
     text = request.args.get("text")
     if not text:
@@ -59,7 +59,7 @@ def convert_text2aql(text):
 with open('prompt-summarize.txt', 'r') as f:
     prompt_summary = Template(f.read())
 
-@app.route("/summarize")
+@app.route("/api/summarize")
 def summarize():
     headlines = request.args.get("headlines")
     if not headlines:
@@ -92,7 +92,7 @@ def sumarize_headlines(headlines, num_sentences):
 
 STORIES_ENDPOINT = 'https://api.aylien.com/news/stories'
 
-@app.route("/fetchnews")
+@app.route("/api/fetchnews")
 def fetchnews():
     aql = request.args.get("aql")
     
