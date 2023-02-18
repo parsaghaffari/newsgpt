@@ -32,7 +32,7 @@ You should now have NewsGPT running on your local machine (by default on port 80
 
 ## Server configuration
 
-Follow the next steps to run NewsGPT on a production web server. 
+Follow the next steps to run NewsGPT on a production web server. Ensure you have Nginx up and running on your server.
 
 Config based on the following articles:
 - [https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04)
@@ -40,11 +40,11 @@ Config based on the following articles:
 
 **1. Configure Nginx**
 
-Copy and configure the Nginx config file `news-gpt.io.conf` to `/etc/nginx/conf.d/`. Don't forget to restart Nginx afterwards to load the new config.
+Assuming Ubuntu. Copy and configure the Nginx config file `news-gpt.io.conf` to `/etc/nginx/conf.d/`. Don't forget to restart Nginx afterwards to load the new config.
 
 Follow [this guide](https://www.nginx.com/blog/using-free-ssltls-certificates-from-lets-encrypt-with-nginx/) to obtain a Let's Encrypt SSL cert and add it to Nginx server (the configuration is already there, you just need to point it to the right cert and key files).
 
-**2. Build React app and copy to Nginx folder**
+**2. Build the React app and copy to Nginx folder**
 
 ```
 cd client/
@@ -56,4 +56,4 @@ If you open your server's address in a browser now you should see the frontend o
 
 **3. Configure uwsgi to serve the Flask API**
 
-Copy uwsgi service description from `wsgi.service` to `/etc/systemd/system`. Start the service using `sudo systemctl start wsgi`. Make sure `wsgi.ini` is configured properly.
+Copy the uwsgi service description from `wsgi.service` to `/etc/systemd/system`. Start the service using `sudo systemctl start wsgi`. Make sure `wsgi.ini` is configured properly.
