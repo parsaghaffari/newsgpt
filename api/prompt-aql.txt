@@ -11,7 +11,7 @@ Examples:
 prompt: Show me all the articles about Aylien, an AI company based in Ireland, that were written in the last 24 hours
 query:
 entities:({{surface_forms.text:"aylien" AND overall_prominence:>=0.65}})
-{"published_at.start": "NOW-1DAY", "published_at.end": "NOW"}
+{"published_at.start": "NOW-7DAYS", "published_at.end": "NOW"}
 
 prompt: Show me all the articles about Apple
 query:
@@ -21,22 +21,22 @@ entities:({{(surface_forms.text:"apple" OR id:Q312) AND overall_prominence:>=0.6
 prompt: What's the latest news about ESG?
 query:
 title:("ESG" OR ("Environmental" AND "Social" AND "Governance"))
-{"published_at.start": "NOW-1DAY", "published_at.end": "NOW"}
+{"published_at.start": "NOW-7DAYS", "published_at.end": "NOW"}
 
 prompt: What's the latest news about ESG in banking?
 query:
 title:(("ESG" OR ("Environmental" AND "Social" AND "Governance")) AND ("banking" OR "banks"))
-{"published_at.start": "NOW-1DAY", "published_at.end": "NOW"}
+{"published_at.start": "NOW-7DAYS", "published_at.end": "NOW"}
 
 prompt: The latest news about tech acquisitions
 query:
 title:(("acquisitions" OR "acquired" OR "merger" OR "merges") AND ("technology" OR "technology startup" OR "tech company"))
-{"published_at.start": "NOW-1DAY", "published_at.end": "NOW"}
+{"published_at.start": "NOW-7DAYS", "published_at.end": "NOW"}
 
 prompt: What are the latest articles about politics?
 query:
 title:("Politics" OR "Politicians" OR "World politics")
-{"published_at.start": "NOW-1DAY", "published_at.end": "NOW"}
+{"published_at.start": "NOW-7DAYS", "published_at.end": "NOW"}
 
 prompt: Show me all the articles about Steve Jobs
 query:
@@ -46,17 +46,17 @@ entities:({{(surface_forms.text:"Steve Jobs" OR id:Q19837) AND overall_prominenc
 prompt: What's in the news about Wells Fargo?
 query: 
 entities:({{(surface_forms.text:"Wells Fargo", id:Q744149) AND overall_prominence:>=0.65}})
-{"published_at.start": "NOW-1DAY", "published_at.end": "NOW"}
+{"published_at.start": "NOW-7DAYS", "published_at.end": "NOW"}
 
 prompt: What's in the news about Elon Musk's companies?
 query: 
 entities:({{(surface_forms.text:"Tesla" OR id:Q478214) AND overall_prominence:>=0.65}} OR {{(surface_forms.text:"SpaceX" OR id:Q193701) AND overall_prominence:>=0.65}} OR {{(surface_forms.text:"OpenAI" OR id:Q21708200) AND overall_prominence:>=0.65}})
-{"published_at.start": "NOW-1DAY", "published_at.end": "NOW"}
+{"published_at.start": "NOW-7DAYS", "published_at.end": "NOW"}
 
 prompt: What news do you have about car crashes?
 query:
 title:("car has crashed" OR "car crashed" OR "car crash" OR "road accident")
-{"published_at.start": "NOW-1DAY", "published_at.end": "NOW"}
+{"published_at.start": "NOW-7DAYS", "published_at.end": "NOW"}
 
 prompt: Show me all the articles about Iran's president
 query:
@@ -86,7 +86,7 @@ entities:({{(id:Q22686 OR surface_forms.text:"donald trump") AND overall_promine
 prompt: What's in the news today about Elon Musk and Michael Burry?
 query:
 entities:({{(surface_forms.text:"Elon Musk" OR id:Q317521) AND overall_prominence:>=0.65}} AND {{(surface_forms.text:"Michael Burry" OR id:Q6828961) AND overall_prominence:>=0.65}})
-{"published_at.start": "NOW-1DAY", "published_at.end": "NOW"}
+{"published_at.start": "NOW-7DAYS", "published_at.end": "NOW"}
 
 prompt: What's being said positively about Jeff Bezos in India and United Kingdom?
 query:
