@@ -8,7 +8,7 @@ NewsGPT is powered by GPT-3 and AYLIEN News API. The source code of NewsGPT can 
 
 The project consists of a Flask backend (in the `api` folder) and a React frontend (in the `client` folder).
 
-To run NewsGPT:
+To run NewsGPT locally:
 
 **1. Start the backend**
 
@@ -29,3 +29,31 @@ npm start build
 ```
 
 You should now have NewsGPT running on your local machine (by default on port 80). Open http://HOSTADDRESS/ in your browser to access the app.
+
+## Server configuration
+
+Follow the next steps to run NewsGPT on a production web server. 
+
+Config based on the following articles:
+- [https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04)
+- [https://www.digitalocean.com/community/tutorials/how-to-deploy-a-react-application-with-nginx-on-ubuntu-20-04](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-react-application-with-nginx-on-ubuntu-20-04)
+
+**1. Configure Nginx**
+
+Copy and configure the Nginx config file `news-gpt.io.conf` to `/etc/nginx/conf.d/`. Don't forget to restart Nginx afterwards to load the new config.
+
+Follow [this guide](https://www.nginx.com/blog/using-free-ssltls-certificates-from-lets-encrypt-with-nginx/) to obtain a Let's Encrypt SSL cert and add it to Nginx server (the configuration is already there, you just need to point it to the right cert and key files).
+
+**2. Build React app and copy to Nginx folder**
+
+```
+cd client/
+npm run build
+cp -R build/ /var/www/
+```
+
+If you open your server's address in a browser now you should see the frontend of NewsGPT.
+
+**3. Configure uwsgi to serve the Flask API**
+
+Copy uwsgi service description from `wsgi.service` to `/etc/systemd/system`. Start the service using `sudo systemctl start wsgi`. Make sure `wsgi.ini` is configured properly.
