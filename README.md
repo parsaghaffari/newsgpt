@@ -20,6 +20,8 @@ pip install -r requirements.txt
 python3 -m flask run --host=0.0.0.0 --port=5001
 ```
 
+Note: If you run the API on a different port you will need to update `api_url` in `src/App.js`.
+
 **2. Start the frontend**
 
 ```
@@ -27,6 +29,8 @@ cd client/
 npm install
 npm start build
 ```
+
+(Use `.env` for configuring the local development server)
 
 You should now have NewsGPT running on your local machine (by default on port 80). Open http://HOSTADDRESS/ in your browser to access the app.
 
@@ -47,6 +51,8 @@ Follow [this guide](https://www.nginx.com/blog/using-free-ssltls-certificates-fr
 Ensure your firewall is set to allow HTTP and HTTPS traffic to the server.
 
 **2. Build the React app and copy to Nginx folder**
+
+Before you build the app you need to make sure the value of `api_url` in `src/App.js` points to your local production API server e.g. `https://${window.location.hostname}/api`.
 
 ```
 cd client/
