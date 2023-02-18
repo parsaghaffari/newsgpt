@@ -1,6 +1,6 @@
 import './App.css';
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
@@ -52,11 +52,16 @@ function App() {
     browserSupportsSpeechRecognition
   } = useSpeechRecognition();
 
+  const aql_submit_button= useRef(null);
+
   useEffect(() => {
     if (transcript !== '') {
      setaql_inputText(transcript);
     }
-  }, [transcript]);
+    if (finalTranscript !== '') {
+      aql_submit_button.current.click();
+    }
+  }, [transcript, finalTranscript]);
 
   const aql_handleSubmit = async (event) => {
     event.preventDefault();
@@ -151,7 +156,7 @@ function App() {
             <IconButton color={!listening ? "primary" : "error"} sx={{ p: '10px' }} onClick={listening ? SpeechRecognition.stopListening : SpeechRecognition.startListening}>
               <MicIcon />
             </IconButton>
-            <IconButton color="primary" sx={{ p: '10px' }} onClick={aql_handleSubmit} disabled={aql_inputText.length !== 0 ? false : true}>
+            <IconButton color="primary" sx={{ p: '10px' }} ref={aql_submit_button} onClick={aql_handleSubmit} disabled={aql_inputText.length !== 0 ? false : true}>
               <SendIcon />
             </IconButton>
           </Paper>
