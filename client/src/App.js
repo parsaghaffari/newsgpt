@@ -156,7 +156,7 @@ function App() {
             <IconButton color={!listening ? "primary" : "error"} sx={{ p: '10px' }} onClick={listening ? SpeechRecognition.stopListening : SpeechRecognition.startListening}>
               <MicIcon />
             </IconButton>
-            <IconButton color="primary" sx={{ p: '10px' }} ref={aql_submit_button} onClick={aql_handleSubmit} disabled={aql_inputText.length !== 0 ? false : true}>
+            <IconButton color="primary" sx={{ p: '10px' }} ref={aql_submit_button} onClick={aql_handleSubmit} disabled={aql_inputText.length !== 0 && !aql_loading ? false : true}>
               <SendIcon />
             </IconButton>
           </Paper>
@@ -187,7 +187,7 @@ function App() {
               value={news_inputTextAQL}
               onChange={(event) => setnews_inputTextAQL(event.target.value)}
             />
-            <IconButton color="primary" sx={{ p: '10px' }} onClick={news_handleSubmit} disabled={news_inputTextAQL.length !== 0 ? false : true}>
+            <IconButton color="primary" sx={{ p: '10px' }} onClick={news_handleSubmit} disabled={news_inputTextAQL.length && !news_loading ? false : true}>
               <SendIcon />
             </IconButton>
           </Paper>
