@@ -32,7 +32,7 @@ npm start build
 
 (Use `.env` for configuring the local development server)
 
-You should now have NewsGPT running on your local machine (by default on port 80). Open http://HOSTADDRESS/ in your browser to access the app.
+You should now have NewsGPT running on your local machine (by default on port 3005). Open http://HOSTADDRESS/ in your browser to access the app.
 
 ## Server configuration
 
