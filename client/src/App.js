@@ -24,7 +24,6 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 
 function App() {
   const [aql_inputText, setaql_inputText] = useState("");
-  const [aql_apiResponse, setaql_apiResponse] = useState("");
   const [aql_loading, setaql_loading] = useState(false);
 
   const [news_inputTextAQL, setnews_inputTextAQL] = useState("");
@@ -70,19 +69,15 @@ function App() {
     try {
       const response = await fetch(`${api_url}/text2aql?text=${aql_inputText}`);
       const data = await response.json();
-      setaql_apiResponse(data.aql);
+      var parts = data.aql.split("\n");
+      setnews_inputTextAQL(parts[1]);
+      setnews_inputTextParams(parts[2]);
     } catch (error) {
-      setaql_apiResponse({ error: "There was a problem with the API call." });
+      setnews_inputTextAQL("There was a problem with the API call.");
+      setnews_inputTextParams("There was a problem with the API call.");
     } finally {
       setaql_loading(false);
     }
-  };
-
-  const aql_handleClick = async (event) => {
-    event.preventDefault();
-    var parts = aql_apiResponse.split("\n");
-    setnews_inputTextAQL(parts[1]);
-    setnews_inputTextParams(parts[2]);
   };
 
   const news_handleSubmit = async (event) => {
@@ -173,7 +168,6 @@ function App() {
       </Box>
       <Box>
         {aql_loading && <div><CircularProgress /></div>}
-        {!aql_loading && aql_apiResponse !== "" && <div><h4>AQL:</h4><Card sx={{ maxWidth: 345 }}><CardActionArea onClick={aql_handleClick}><CardContent><Typography variant="body2" color="text.secondary">{aql_apiResponse}</Typography></CardContent></CardActionArea></Card></div>}
       </Box>
       <p><br/><br/><b>Step 2. Fetch news articles using News API</b></p>
       <Box>
