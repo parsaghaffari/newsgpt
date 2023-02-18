@@ -37,7 +37,7 @@ function App() {
   const [summary_inputNumSentences, setsummary_inputNumSentences] = useState(3);
   const [summary_loading, setsummary_loading] = useState(false);
 
-  const api_url = `https://${window.location.hostname}/api`;
+  const api_url = `http://${window.location.hostname}:5001/api`;
 
   const TRACKING_ID = "G-L8PWKQ7CY7";
   ReactGA.initialize(TRACKING_ID);
