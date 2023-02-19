@@ -65,7 +65,7 @@ entities:({{surface_forms.text:"Hassan Rouhani" AND overall_prominence:>=0.65}})
 
 prompt: What happened in Finland last week?
 query:
-entities:({{surface_forms.text:"finland" AND overall_prominence:>=0.65 AND element:title}}})
+entities:({{surface_forms.text:"finland" AND element:title}})
 {"published_at.start": "NOW-14DAYS", "published_at.end": '7DAYS'}
 
 prompt: What cyber security events happened in Australia within the pharmaceutical industry last month?
