@@ -18,6 +18,8 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
+import StopCircleIcon from '@mui/icons-material/StopCircle';
 
 import TimeAgo from 'react-timeago';
 import ReactGA from "react-ga4";
@@ -41,6 +43,8 @@ function App() {
 
   const [params_hidden, set_params_hidden] = useState(true);
   const [aql_received, set_aql_received] = useState(false);
+  
+  const [speech_playing, set_speech_playing] = useState(false);
 
   const api_url = `http://${window.location.hostname}:5001/api`;
 
@@ -139,6 +143,26 @@ function App() {
 
   const params_collapse_handleClick = () => {
     set_params_hidden(!params_hidden);
+  };
+
+  const speak_play = (event) => {
+    event.preventDefault();
+
+    set_speech_playing(true);
+    const synth = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(summary_apiResponse);
+    utterance.voice = synth.getVoices()["Alex"];
+
+    synth.speak(utterance);
+  };
+
+  const speak_stop = (event) => {
+    event.preventDefault();
+
+    set_speech_playing(false);
+    const synth = window.speechSynthesis;
+    synth.pause();
+    synth.cancel();
   };
 
   return (
@@ -246,7 +270,7 @@ function App() {
           ))
         }
       </Box>
-      <p><br/><br/><b>Summarize the headlines using GPT-3</b></p>
+      <p><br/><br/><b>Summarize the headlines</b></p>
       <Box>
         <br/>
           <Typography id="input-slider" gutterBottom>
@@ -265,7 +289,18 @@ function App() {
       </Box>
       <Box style={{'margin-top': '40px'}}>
         {summary_loading && <div><CircularProgress /></div>}
-        {!summary_loading && summary_apiResponse !== "" && <div><h4>Summary:</h4><div>{summary_apiResponse}</div></div>}
+        {!summary_loading && summary_apiResponse !== "" 
+          && <div>
+              <h4>Summary:</h4>
+              <div>{summary_apiResponse}</div>
+              {
+              speech_playing 
+                ? <IconButton size="large" color="primary" onClick={speak_stop}><StopCircleIcon fontSize="inherit" /></IconButton>
+                : <IconButton size="large" color="primary" onClick={speak_play}><RecordVoiceOverIcon fontSize="inherit" /></IconButton>
+              }
+            </div>
+        }
+        {}
       </Box>
       <Box style={{'margin-top': '100px', 'margin-bottom': '50px'}}>
         powered by<br/><br/>
