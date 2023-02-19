@@ -5,7 +5,7 @@ import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
+import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
@@ -175,7 +175,7 @@ function App() {
           <h1 style={{'text-align': 'right'}}><a class="github-button" href="https://github.com/parsaghaffari/newsgpt" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-size="large" data-show-count="true" aria-label="Star parsaghaffari/newsgpt on GitHub">Star</a></h1>
         </Grid>
     </Grid>
-      <div>Hello 👋🏻 You can use NewsGPT to get the latest news about anything–any topic, category, entity or event. <br/><br/>NewsGPT is powered by GPT-3 and <Link href="https://aylien.com" target="_blank">AYLIEN News API</Link>. The source code of NewsGPT can be accessed <Link href="https://github.com/parsaghaffari/newsgpt" target="_blank">here</Link>. NewsGPT is mostly developed using ChatGPT.<br/><br/><br/></div>
+      <p>Hello 👋🏻 You can use NewsGPT to get the latest news about anything–any topic, category, entity or event.</p>
       <Box>
           <Paper
             component="form"
@@ -197,14 +197,13 @@ function App() {
       </Box>
       <Box>
         <p>
-          Examples:
+          <b>Examples</b>
           <ul>
             <li><Link href="#" onClick={example_handleClick}>Show me articles that have Elon Musk in their title, but not SpaceX</Link></li>
             <li><Link href="#" onClick={example_handleClick}>What happened in biotech 3 months ago in Germany?</Link></li>
             <li><Link href="#" onClick={example_handleClick}>What are the latest car crashes?</Link></li>
             <li><Link href="#" onClick={example_handleClick}>What's in the news about the president of China that has a negative sentiment?</Link></li>
           </ul>
-          <br/>
         </p>
       </Box>
       <Accordion expanded={!params_hidden} onChange={params_collapse_handleClick}>
@@ -213,7 +212,7 @@ function App() {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>Advanced Settings</Typography>
+          <Typography variant="button">Show parameters</Typography>
         </AccordionSummary>
         <AccordionDetails>
         <p><b>Underlying News API query</b></p>
@@ -259,36 +258,43 @@ function App() {
         </Box>
         </AccordionDetails>
       </Accordion>
+      <br/>
       <Box>
-        {aql_loading && <div><CircularProgress /></div>}
+        {(aql_loading || news_loading) && <div><LinearProgress /></div>}
       </Box>
       <Box>
-        {news_loading && <div><CircularProgress /></div>}
-        {!news_loading && news_apiResponse.length !== 0 && 
+        {!news_loading && news_apiResponse.length !== 0 && <b>Headlines</b>}
+        <ul>
+        {!news_loading && news_apiResponse.length !== 0 &&
           news_apiResponse.map(({ id, title, links, source, published_at }) => (
-            <p key={id}><Link href={links.permalink} target="_blank"> {title}</Link> - {source.name} (<TimeAgo date={published_at} />)</p>
+            <li><p key={id}><Link href={links.permalink} target="_blank"> {title}</Link> - {source.name} (<TimeAgo date={published_at} />)</p></li>
           ))
         }
+        </ul>
       </Box>
-      <p><br/><br/><b>Summarize the headlines</b></p>
-      <Box>
-        <br/>
-          <Typography id="input-slider" gutterBottom>
-            Number of sentences in summary
-          </Typography>
-          <Slider
-            aria-label="Number of articles"
-            defaultValue={3}
-            onChange={numsentences_handleSliderChange}
-            valueLabelDisplay="auto"
-            step={1}
-            min={1}
-            max={10}
-          />
-          <Button variant="contained" onClick={summary_handleSubmit} disabled={news_apiResponse.length !== 0 ? false : true}>Summarize</Button>
-      </Box>
+      {
+        news_apiResponse.length !== 0
+        ? <Box>
+            <p><br/><br/><b>Summarize the headlines</b></p>
+            <br/>
+              <Typography id="input-slider" gutterBottom>
+                Number of sentences in summary
+              </Typography>
+              <Slider
+                aria-label="Number of articles"
+                defaultValue={3}
+                onChange={numsentences_handleSliderChange}
+                valueLabelDisplay="auto"
+                step={1}
+                min={1}
+                max={10}
+              />
+              <Button variant="contained" onClick={summary_handleSubmit}>Summarize</Button>
+          </Box>
+        : <p></p>
+      }
       <Box style={{'margin-top': '40px'}}>
-        {summary_loading && <div><CircularProgress /></div>}
+        {summary_loading && <div><LinearProgress /></div>}
         {!summary_loading && summary_apiResponse !== "" 
           && <div>
               <h4>Summary:</h4>
@@ -300,10 +306,11 @@ function App() {
               }
             </div>
         }
-        {}
       </Box>
-      <Box style={{'margin-top': '100px', 'margin-bottom': '50px'}}>
-        powered by<br/><br/>
+      <Box style={{'margin-top': '250px', 'margin-bottom': '50px'}}>
+        <hr></hr>
+        <Typography variant="subtitle2">NewsGPT is powered by GPT-3 and <Link href="https://aylien.com" target="_blank">AYLIEN News API</Link>. The source code of NewsGPT can be accessed <Link href="https://github.com/parsaghaffari/newsgpt" target="_blank">here</Link>. NewsGPT is mostly developed using ChatGPT.<br/><br/><br/></Typography>
+        <Typography variant="subtitle2">powered by</Typography><br/>
         <a href="https://aylien.com/" target="_blank">
           <img src="https://aylien.com/img/logos/aylien-logo.svg" alt="Aylien Logo" style={{'width': '120px'}}/>
         </a>
