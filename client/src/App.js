@@ -6,10 +6,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
@@ -17,6 +14,10 @@ import SendIcon from '@mui/icons-material/Send';
 import MicIcon from '@mui/icons-material/Mic';
 import Slider from '@mui/material/Slider';
 import Grid from '@mui/material/Grid';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import TimeAgo from 'react-timeago';
 import ReactGA from "react-ga4";
@@ -25,16 +26,21 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 function App() {
   const [aql_inputText, setaql_inputText] = useState("");
   const [aql_loading, setaql_loading] = useState(false);
+  const aql_submit_button= useRef(null);
 
   const [news_inputTextAQL, setnews_inputTextAQL] = useState("");
   const [news_inputTextParams, setnews_inputTextParams] = useState("");
   const [news_inputNumArticles, setnews_inputNumArticles] = useState(10);
   const [news_apiResponse, setnews_apiResponse] = useState("");
   const [news_loading, setnews_loading] = useState(false);
+  const news_submit_button= useRef(null);
 
   const [summary_apiResponse, setsummary_apiResponse] = useState("");
   const [summary_inputNumSentences, setsummary_inputNumSentences] = useState(3);
   const [summary_loading, setsummary_loading] = useState(false);
+
+  const [params_hidden, set_params_hidden] = useState(true);
+  const [aql_received, set_aql_received] = useState(false);
 
   const api_url = `http://${window.location.hostname}:5001/api`;
 
@@ -51,8 +57,6 @@ function App() {
     browserSupportsSpeechRecognition
   } = useSpeechRecognition();
 
-  const aql_submit_button= useRef(null);
-
   useEffect(() => {
     if (transcript !== '') {
      setaql_inputText(transcript);
@@ -61,6 +65,13 @@ function App() {
       aql_submit_button.current.click();
     }
   }, [transcript, finalTranscript]);
+
+  useEffect(() => {
+    if(aql_received && params_hidden) {
+      news_submit_button.current.click();
+      set_aql_received(false);
+    }
+  }, [params_hidden, aql_received, news_submit_button]);
 
   const aql_handleSubmit = async (event) => {
     event.preventDefault();
@@ -72,6 +83,7 @@ function App() {
       var parts = data.aql.split("\n");
       setnews_inputTextAQL(parts[1]);
       setnews_inputTextParams(parts[2]);
+      set_aql_received(true);
     } catch (error) {
       setnews_inputTextAQL("There was a problem with the API call.");
       setnews_inputTextParams("There was a problem with the API call.");
@@ -125,6 +137,10 @@ function App() {
     setsummary_inputNumSentences(event.target.value);
   };
 
+  const params_collapse_handleClick = () => {
+    set_params_hidden(!params_hidden);
+  };
+
   return (
     <Container fixed justifyContent="center" alignItems="center" maxWidth="md" style={{'margin-top': '50px'}}>
       <Grid container spacing={2}>
@@ -136,7 +152,6 @@ function App() {
         </Grid>
     </Grid>
       <div>Hello 👋🏻 You can use NewsGPT to get the latest news about anything–any topic, category, entity or event. <br/><br/>NewsGPT is powered by GPT-3 and <Link href="https://aylien.com" target="_blank">AYLIEN News API</Link>. The source code of NewsGPT can be accessed <Link href="https://github.com/parsaghaffari/newsgpt" target="_blank">here</Link>. NewsGPT is mostly developed using ChatGPT.<br/><br/><br/></div>
-      <p><b>Step 1. Generate an AQL using GPT-3</b></p>
       <Box>
           <Paper
             component="form"
@@ -157,20 +172,28 @@ function App() {
           </Paper>
       </Box>
       <Box>
-        <br/><br/>
-        Examples:
-        <ul>
-          <li><Link href="#" onClick={example_handleClick}>Show me articles that have Elon Musk in their title, but not SpaceX</Link></li>
-          <li><Link href="#" onClick={example_handleClick}>What happened in biotech 3 months ago in Germany?</Link></li>
-          <li><Link href="#" onClick={example_handleClick}>What are the latest car crashes?</Link></li>
-          <li><Link href="#" onClick={example_handleClick}>What's in the news about the president of China that has a negative sentiment?</Link></li>
-        </ul>
+        <p>
+          Examples:
+          <ul>
+            <li><Link href="#" onClick={example_handleClick}>Show me articles that have Elon Musk in their title, but not SpaceX</Link></li>
+            <li><Link href="#" onClick={example_handleClick}>What happened in biotech 3 months ago in Germany?</Link></li>
+            <li><Link href="#" onClick={example_handleClick}>What are the latest car crashes?</Link></li>
+            <li><Link href="#" onClick={example_handleClick}>What's in the news about the president of China that has a negative sentiment?</Link></li>
+          </ul>
+          <br/>
+        </p>
       </Box>
-      <Box>
-        {aql_loading && <div><CircularProgress /></div>}
-      </Box>
-      <p><br/><br/><b>Step 2. Fetch news articles using News API</b></p>
-      <Box>
+      <Accordion expanded={!params_hidden} onChange={params_collapse_handleClick}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>Advanced Settings</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+        <p><b>Underlying News API query</b></p>
+        <Box>
           <Paper
             component="form"
             sx={{ p: '2px 4px', display: 'flex', alignItems: 'center'}}
@@ -181,7 +204,7 @@ function App() {
               value={news_inputTextAQL}
               onChange={(event) => setnews_inputTextAQL(event.target.value)}
             />
-            <IconButton color="primary" sx={{ p: '10px' }} onClick={news_handleSubmit} disabled={news_inputTextAQL.length && !news_loading ? false : true}>
+            <IconButton color="primary" sx={{ p: '10px' }} ref={news_submit_button} onClick={news_handleSubmit} disabled={news_inputTextAQL.length && !news_loading ? false : true}>
               <SendIcon />
             </IconButton>
           </Paper>
@@ -209,6 +232,11 @@ function App() {
             min={10}
             max={100}
           />
+        </Box>
+        </AccordionDetails>
+      </Accordion>
+      <Box>
+        {aql_loading && <div><CircularProgress /></div>}
       </Box>
       <Box>
         {news_loading && <div><CircularProgress /></div>}
@@ -218,7 +246,7 @@ function App() {
           ))
         }
       </Box>
-      <p><br/><br/><b>Step 3. Summarize the headlines using GPT-3</b></p>
+      <p><br/><br/><b>Summarize the headlines using GPT-3</b></p>
       <Box>
         <br/>
           <Typography id="input-slider" gutterBottom>
