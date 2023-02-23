@@ -54,10 +54,8 @@ function App() {
 
   const {
     transcript,
-    interimTranscript,
     finalTranscript,
     listening,
-    resetTranscript,
     browserSupportsSpeechRecognition
   } = useSpeechRecognition();
 
@@ -77,9 +75,18 @@ function App() {
     }
   }, [params_hidden, aql_received, news_submit_button]);
 
+  useEffect(() => {
+    set_speech_playing(false);
+    const synth = window.speechSynthesis;
+    synth.pause();
+    synth.cancel();
+  }, [summary_apiResponse]);
+
   const aql_handleSubmit = async (event) => {
     event.preventDefault();
     setaql_loading(true);
+    setsummary_apiResponse("");
+    setnews_apiResponse([]);
 
     try {
       const response = await fetch(`${api_url}/text2aql?text=${aql_inputText}`);
@@ -99,6 +106,8 @@ function App() {
   const news_handleSubmit = async (event) => {
     event.preventDefault();
     setnews_loading(true);
+    setsummary_apiResponse("");
+    setnews_apiResponse([]);
 
     try {
       const response = await fetch(`${api_url}/fetchnews?aql=${news_inputTextAQL}&params=${news_inputTextParams}&num_articles=${news_inputNumArticles}`);
@@ -114,6 +123,10 @@ function App() {
   const summary_handleSubmit = async (event) => {
     event.preventDefault();
     setsummary_loading(true);
+    set_speech_playing(false);
+    const synth = window.speechSynthesis;
+    synth.pause();
+    synth.cancel();
     
     const headlines = news_apiResponse.map(({ title }) => (title)).join("\\n")
     
@@ -295,7 +308,7 @@ function App() {
       }
       <Box style={{'margin-top': '40px'}}>
         {summary_loading && <div><LinearProgress /></div>}
-        {!summary_loading && summary_apiResponse !== "" 
+        {!summary_loading && summary_apiResponse !== "" && news_apiResponse.length !== 0
           && <div>
               <h4>Summary:</h4>
               <div>{summary_apiResponse}</div>
