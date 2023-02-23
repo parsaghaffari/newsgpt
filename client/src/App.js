@@ -166,7 +166,7 @@ function App() {
   };
 
   return (
-    <Container fixed justifyContent="center" alignItems="center" maxWidth="md" style={{'margin-top': '50px'}}>
+    <Container fixed justifyContent="center" alignItems="center" maxWidth="lg" style={{'margin-top': '50px'}}>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <h1>NewsGPT</h1>
