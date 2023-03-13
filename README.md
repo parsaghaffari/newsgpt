@@ -4,7 +4,7 @@ Hello 👋🏻 You can use NewsGPT to get the latest news about anything–any t
 
 NewsGPT is powered by GPT-3 and AYLIEN News API. The source code of NewsGPT can be accessed here. NewsGPT is developed using ChatGPT.
 
-![NewsGPT demo](https://media.giphy.com/media/az9ZeMw5vhBrL5G2XK/giphy.gif)
+![NewsGPT demo](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGEyNWEzNDgyMTg3OGZiM2RlMTlmZDQ5MTk2YTM4OGVkOTM3NDUzMiZjdD1n/Aqa3yLO6SBtksgwGO4/giphy.gif)
 
 The project consists of a Flask backend (in the `api` folder) and a React frontend (in the `client` folder).
 
