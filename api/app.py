@@ -8,7 +8,6 @@ from copy import deepcopy
 import sys
 import yaml
 
-
 with open("./config.yml", "r") as f:
     config = yaml.safe_load(f)
 
@@ -33,12 +32,27 @@ def text2aql():
     if not text:
         return jsonify({"error": "Parameter 'text' is required."}), 400
     
-    aql = convert_text2aql(text)
+    aql = convert_text2aql_chatgpt(text)
     response = jsonify({"aql": aql})
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
 
-def convert_text2aql(text):
+def convert_text2aql_chatgpt(text):
+    try:
+        aql = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "user", "content": prompt_aql.substitute({'prompt': text})},
+            ]
+        )
+        if aql['choices'] and len(aql['choices']) > 0:
+            return aql['choices'][0]['message']['content']
+        return "No compute"
+    except:
+        return "OpenAI API error"
+
+# Not used anymore
+def convert_text2aql_gpt3(text):
     try:
         aql = openai.Completion.create(
             model="text-davinci-003",
@@ -47,7 +61,7 @@ def convert_text2aql(text):
             temperature=0.7
         )
         if aql['choices'] and len(aql['choices']) > 0:
-            return aql['choices'][0]['text']
+            return aql['choices'][0]['message']['content']
         return "No compute"
     except:
         return "OpenAI API error"

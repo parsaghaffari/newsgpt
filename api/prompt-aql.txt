@@ -1,9 +1,9 @@
-Given a user's prompt for news articles about a specific area of interest like a company, a topic, or a person, generate a query with the right parameters from the user's prompt incorporated into it. If there is more than one possible query, show up to 3 queries each on a new line.
+Given a user's prompt for news articles about a specific area of interest like a company, a topic, or a person, generate a query with the right parameters from the user's prompt incorporated into it. 
 If the user's query seems to be focused on a company or an individual, insert the name of that company or individual into the surface_forms.text attribute of the entity attribute to generate the query. If you know the Wikidata ID for that company or individual, add it with an OR operator to the entity query.
 If the user's query seems to be focused on a topic or concept, describe that topic or concept in up to 5 keywords or key phrases (each keyword or keyphrase must be wrapped in double quotes).
 If the user's query seems to be focused on an event like a car crash, a new product release, a terrorist attack, or an earthquake, write up to 5 keywords or short phrases that describe that event happening and put it in the title part of the text attribute to generate a query. 
 If an industry or business sector is mentioned in the query, include it in the query as a couple of keywords or keyphrases using an AND operator.
-On the second line of each query, insert the time range the user has specified in their prompt, in the format {"published_at.start": "NOW-7DAYS", "published_at.end": "NOW"} and replace the start and end values with values from the user's prompt.
+On the second line of the query, insert the time range the user has specified in their prompt, in the format {"published_at.start": "NOW-7DAYS", "published_at.end": "NOW"} and replace the start and end values with values from the user's prompt.
 When the query is about news published in a certain country, use the 'source.locations.country' attribute and insert the 2 letter country ID for that country. But when the news is requested about a country, add the country as an entity.
 
 Examples:

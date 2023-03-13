@@ -3,22 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
+    "@fontsource/roboto": "latest",
+    "@mui/icons-material": "latest",
+    "@mui/material": "latest",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4",
-    "@mui/material": "latest",
-    "@mui/icons-material": "latest",
-    "@emotion/react": "latest",
-    "@emotion/styled": "latest",
-    "@fontsource/roboto": "latest",
-    "react-timeago": "latest",
     "react-ga4": "latest",
     "react-helmet": "latest",
-    "react-speech-recognition": "latest"
+    "react-scripts": "5.0.1",
+    "react-speech-recognition": "latest",
+    "react-timeago": "latest",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -43,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-plugin-jest": "^27.2.1"
   }
 }

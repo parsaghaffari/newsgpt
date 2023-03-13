@@ -92,8 +92,8 @@ function App() {
       const response = await fetch(`${api_url}/text2aql?text=${aql_inputText}`);
       const data = await response.json();
       var parts = data.aql.split("\n");
-      setnews_inputTextAQL(parts[1]);
-      setnews_inputTextParams(parts[2]);
+      setnews_inputTextAQL(parts[0]);
+      setnews_inputTextParams(parts[1]);
       set_aql_received(true);
     } catch (error) {
       setnews_inputTextAQL("There was a problem with the API call.");
