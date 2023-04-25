@@ -322,7 +322,7 @@ function App() {
       </Box>
       <Box style={{'margin-top': '250px', 'margin-bottom': '50px'}}>
         <hr></hr>
-        <Typography variant="subtitle2">NewsGPT is powered by GPT-3 and <Link href="https://aylien.com" target="_blank">AYLIEN News API</Link>. The source code of NewsGPT can be accessed <Link href="https://github.com/parsaghaffari/newsgpt" target="_blank">here</Link>. NewsGPT is mostly developed using ChatGPT.<br/><br/><br/></Typography>
+        <Typography variant="subtitle2">NewsGPT is powered by the ChatGPT API and <Link href="https://aylien.com" target="_blank">AYLIEN News API</Link>. The source code of NewsGPT can be accessed <Link href="https://github.com/parsaghaffari/newsgpt" target="_blank">here</Link>. NewsGPT is mostly developed using ChatGPT.<br/><br/><br/></Typography>
         <Typography variant="subtitle2">powered by</Typography><br/>
         <a href="https://aylien.com/" target="_blank">
           <img src="https://aylien.com/img/logos/aylien-logo.svg" alt="Aylien Logo" style={{'width': '120px'}}/>
