@@ -1,6 +1,8 @@
+**This repository is outdated. Please see an updated version of NewsGPT here: https://github.com/parsaghaffari/newsgpt-streamlit**
+
 # NewsGPT
 
-Hello 👋🏻 You can use NewsGPT to get the latest news about anything–any topic, category, entity or event. See it in action: [http://news-gpt.io](http://news-gpt.io)
+Hello 👋🏻 You can use NewsGPT to get the latest news about anything–any topic, category, entity or event. See it in action [here](https://news-gpt-demo.streamlit.app).
 
 NewsGPT is powered by GPT-3 and AYLIEN News API. The source code of NewsGPT can be accessed here. NewsGPT is developed using ChatGPT.
 
